@@ -23,7 +23,10 @@ public class BrainfuckVM {
 	}
 
 	public void loadProgram(String rawProgram) {
-		processor.loadProgram(rawProgram.toCharArray());
+
+		CompiledProgram compile = Compiler.compile(rawProgram.toCharArray());
+//		System.out.println(compile);
+		processor.loadProgram(compile);
 	}
 
 	public void run() {

@@ -1,9 +1,8 @@
 package info.kisai.vm.impl.brainfuck.instructions;
 
-import info.kisai.vm.Instruction;
 import info.kisai.vm.Processor;
 
-public class Output implements Instruction<Integer> {
+public class Output extends AbstractInstruction<Integer> {
 
 	@Override
 	public char optCode() {
@@ -11,8 +10,8 @@ public class Output implements Instruction<Integer> {
 	}
 
 	@Override
-	public void execute(Processor<Integer> processor) {
-		System.out.print(new String(Character.toChars(processor.getDataAt(processor.getDataPointer()))));
+	public void execute(Processor<Integer> processor, int parameter) {
+		System.out.print(Character.toChars(processor.getDataAt(processor.getDataPointer())));
 	}
 
 }

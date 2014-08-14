@@ -1,11 +1,10 @@
 package info.kisai.vm.impl.brainfuck.instructions;
 
-import info.kisai.vm.Instruction;
 import info.kisai.vm.Processor;
 
 import java.util.Scanner;
 
-public class Input implements Instruction<Integer> {
+public class Input extends AbstractInstruction<Integer> {
 
 	private final Scanner scanner = new Scanner(System.in);
 
@@ -15,7 +14,7 @@ public class Input implements Instruction<Integer> {
 	}
 
 	@Override
-	public void execute(Processor<Integer> processor) {
+	public void execute(Processor<Integer> processor, int parameter) {
 		processor.setDataAt(processor.getDataPointer(), Integer.valueOf(scanner.next().codePointAt(0)));
 	}
 

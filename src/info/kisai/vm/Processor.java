@@ -1,5 +1,7 @@
 package info.kisai.vm;
 
+import info.kisai.vm.impl.brainfuck.CompiledProgram;
+
 import java.util.Set;
 
 public abstract class Processor<T> {
@@ -22,15 +24,21 @@ public abstract class Processor<T> {
 		this.dataMemory = dataMemory;
 	}
 
-	public void loadProgram(char[] optCodes) {
-		programMemory.load(optCodes, instructionSet);
+	public void loadProgram(CompiledProgram program) {
+		programMemory.load(program, instructionSet);
 	}
 
 	public void run() {
+		long c = 0;
+		long tStart = System.currentTimeMillis();
 		while (programPointer < programMemory.size()) {
+			c++;
+//			System.out.println(programPointer + "\t" + programMemory.get(programPointer));
 			programMemory.get(programPointer).execute(this);
 			programPointer++;
 		}
+		long time = System.currentTimeMillis() - tStart;
+        System.out.println("\n" + c + " instructions en " + time + " ms --> " + (c / (time * 1000D)) + " MHz");
 	}
 
 	public int getProgramPointer() {
@@ -55,9 +63,5 @@ public abstract class Processor<T> {
 
 	public void setDataAt(int memoryPointer, T data) {
 		dataMemory.set(memoryPointer, data);
-	}
-
-	public Instruction<T> getInstructionAt(int programPointer) {
-		return programMemory.get(programPointer);
 	}
 }
